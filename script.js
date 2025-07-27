@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Mapbox access token - Replace with your actual token
     // Get your free token at: https://account.mapbox.com/access-tokens/
-    mapboxgl.accessToken = 'YOUR_MAPBOX_ACCESS_TOKEN_HERE';
+    mapboxgl.accessToken = 'pk.eyJ1IjoiYWJ1YmFrZXJuYWltMSIsImEiOiJjbWRsdmJha3cxYm1hMnRwb3hqeXRtNWN5In0.i7t72SCFxQgH6m4eQl8pYA';
 
     // Check if access token is set
     if (mapboxgl.accessToken === 'YOUR_MAPBOX_ACCESS_TOKEN_HERE') {

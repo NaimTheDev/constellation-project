@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', function() {
             '<li>✅ Interactive zoom and pan controls</li>' +
             '<li>✅ Navigation, scale, and fullscreen controls</li>' +
             '<li>✅ Atmospheric effects for realism</li>' +
+            '<li>✅ Location markers for memorable places</li>' +
             '<li>✅ Error handling and user guidance</li>' +
             '</ul></div>' +
             '<p style="color: #666; font-size: 14px;"><strong>To view the live globe:</strong> Deploy to a web server with internet access and add your Mapbox API token.</p>' +
@@ -74,12 +75,42 @@ document.addEventListener('DOMContentLoaded', function() {
             'space-color': 'rgb(11, 11, 25)', // Background color
             'star-intensity': 0.6 // Background star brightness (default 0.35 at low zooms)
         });
+
+        // Add location markers to the globe
+        addLocationMarkers(map);
     });
 
     // Handle errors
     map.on('error', (e) => {
         console.error('Mapbox GL JS error:', e);
     });
+
+    // Function to add location markers to the map
+    function addLocationMarkers(map) {
+        console.log('Adding location markers...');
+        
+        // Check if memorableLocations is available
+        if (typeof memorableLocations === 'undefined') {
+            console.warn('memorableLocations data not found. Make sure locationsData.js is loaded.');
+            return;
+        }
+
+        // Iterate through each memorable location and create markers
+        memorableLocations.forEach((location, index) => {
+            try {
+                // Create a new marker instance
+                const marker = new mapboxgl.Marker()
+                    .setLngLat(location.coordinates)
+                    .addTo(map);
+
+                console.log(`Added marker ${index + 1}: ${location.name} at [${location.coordinates[0]}, ${location.coordinates[1]}]`);
+            } catch (error) {
+                console.error(`Error creating marker for ${location.name}:`, error);
+            }
+        });
+
+        console.log(`Successfully added ${memorableLocations.length} location markers to the globe.`);
+    }
     }
 });
 
